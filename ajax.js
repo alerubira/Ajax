@@ -10,6 +10,7 @@ function obtenerUsuario() {
         // Mostrar la respuesta en la consola
         console.log(data);
         bBorrar.style.display="block";
+        //no de activa en la segunda ronda
         // También puedes acceder a propiedades específicas, por ejemplo, el nombre
        // const nombre = data.results[0].name.first;
        // console.log('Nombre:', nombre);

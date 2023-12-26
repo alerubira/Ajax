@@ -2,7 +2,7 @@ let principal=document.getElementById("principal");
 let secundario=document.getElementById("secundario");
 let bBorrar=document.querySelector("#borrar");
 
-function obtenerUsuario() {
+/*function obtenerUsuario() {
  // bBorrar.style.display="block";
     // Hacer la solicitud a la API
     fetch('https://randomuser.me/api/')
@@ -22,25 +22,38 @@ function obtenerUsuario() {
                       imagen:data.results[0].picture.medium};
        nombreP=document.createElement("p");
        var ima = document.createElement("img");
-       var div1=document.createElement("div");
+       //var div1=document.createElement("div");
        console.log(persona.imagen);
        ima.src=persona.imagen;
        nombreP.textContent=`Nombre ${persona.nombre} , Apellido : ${persona.apellido} , Genero : ${persona.genero} , Pais : ${persona.pais}`;
        var botonBorrar = document.createElement("button");
            botonBorrar.textContent = "Borrar";
-           botonBorrar.onclick = borrar(div1); // Asociar la función borrar al evento de clic
+           botonBorrar.onclick = borrar(); // Asociar la función borrar al evento de clic
 
-       div1.appendChild(nombreP);
-       div1.appendChild(ima);
-       div1.appendChild(botonBorrar);
-       secundario.appendChild(div1);
+       secundario.appendChild(nombreP);
+       secundario.appendChild(ima);
+       secundario.appendChild(botonBorrar);
+      // secundario.appendChild(div1);
         // Aquí puedes manipular los datos según tus necesidades
       })
       .catch(error => console.error('Error al obtener usuario:', error));
-  }
-function borrar(div1){
-     // bBorrar.style.display="none";
-      while (div1.firstChild) {
-        div1.firstChild.remove();
+      function borrar(){
+        // bBorrar.style.display="none";
+         while (secundario.firstChild) {
+           secundario.firstChild.remove();
+       }
+   }  
+  }*/
+  var model = 'camry'                                          
+$.ajax({
+    method: 'GET',
+    url: 'https://api.api-ninjas.com/v1/cars?model=' + model,
+    headers: { 'X-Api-Key': '2D6LbTkcL9iyjDPeePB5xA==24fuMadMi8HJpxIK'},
+    contentType: 'application/json',
+    success: function(result) {
+        console.log(result);
+    },
+    error: function ajaxError(jqXHR) {
+        console.error('Error: ', jqXHR.responseText);
     }
-}  
+});

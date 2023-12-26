@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AJAX</title>
     <link rel="stylesheet" href="ajax.css">
-    <script src="ajax.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
+   <script src="ajax.js" defer></script> 
+    
+
 </head>
 <body>
     <div id="principal">
@@ -15,5 +18,22 @@
         </div>
        <!--<button onclick="borrar()" id="borrar">Borrar</button> --> 
     </div>
+    <!--<script>
+        var model = 'camry'
+        // Your AJAX code here
+        $.ajax({
+            method: 'GET',
+            url: 'https://api.api-ninjas.com/v1/cars?model=' + model,
+            headers: { 'X-Api-Key': '2D6LbTkcL9iyjDPeePB5xA==24fuMadMi8HJpxIK'},
+            contentType: 'application/json',
+            success: function(result) {
+                console.log(result);
+            },
+            error: function ajaxError(jqXHR) {
+                console.error('Error: ', jqXHR.responseText);
+            }
+        });
+    </script>-->
+    
 </body>
 </html>

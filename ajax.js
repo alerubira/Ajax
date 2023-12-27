@@ -44,16 +44,38 @@ let bBorrar=document.querySelector("#borrar");
        }
    }  
   }*/
-  var model = 'camry'                                          
+  var model = "toyota";  
+                                      
 $.ajax({
     method: 'GET',
-    url: 'https://api.api-ninjas.com/v1/cars?model=' + model,
+    url: 'https://api.api-ninjas.com/v1/cars?limit=5&year=1995',
     headers: { 'X-Api-Key': '2D6LbTkcL9iyjDPeePB5xA==24fuMadMi8HJpxIK'},
     contentType: 'application/json',
     success: function(result) {
         console.log(result);
+        /*while (result.firstChild) {
+          
+          
+       }*/
+       for (let iterator of result) {
+        
+        let marca=document.createElement("p") ;
+        let modelo=document.createElement("p");
+        let combustible=document.createElement("p"); 
+        let anio=document.createElement("p");
+         marca.textContent=`Marca : ${iterator.make}`;
+         modelo.textContent=`Modelo : ${iterator.model}`;
+         combustible.textContent=`Tipo de Combustible : ${iterator.fuel_type}`;
+         anio.textContent=`Año : ${iterator.year}`;
+         secundario.appendChild(marca);
+         secundario.appendChild(modelo);
+         secundario.appendChild(combustible);
+         secundario.appendChild(anio);
+       }
+    
     },
     error: function ajaxError(jqXHR) {
         console.error('Error: ', jqXHR.responseText);
-    }
+    },
+    
 });

@@ -1,6 +1,6 @@
-let principal=document.getElementById("principal");
+/*let principal=document.getElementById("principal");
 let secundario=document.getElementById("secundario");
-let bBorrar=document.querySelector("#borrar");
+let bBorrar=document.querySelector("#borrar");*/
 
 /*function obtenerUsuario() {
  // bBorrar.style.display="block";
@@ -44,7 +44,7 @@ let bBorrar=document.querySelector("#borrar");
        }
    }  
   }*/
-  var model = "toyota";  
+  /*var model = "toyota";  
                                       
 $.ajax({
     method: 'GET',
@@ -57,7 +57,7 @@ $.ajax({
           
           
        }*/
-       for (let iterator of result) {
+      /* for (let iterator of result) {
         
         let marca=document.createElement("p") ;
         let modelo=document.createElement("p");
@@ -78,4 +78,11 @@ $.ajax({
         console.error('Error: ', jqXHR.responseText);
     },
     
+});*/
+let divSecundario=document.getElementById("secundario");
+let personajes=[{}];
+fetch ('http://hp-api.herokuapp.com/api/characters')
+.then(response=>response.json())
+.then(data=>{
+
 });

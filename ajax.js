@@ -79,10 +79,65 @@ $.ajax({
     },
     
 });*/
-let divSecundario=document.getElementById("secundario");
+let divPrincipal=document.getElementById("divPrincipal");
 let personajes=[{}];
-fetch ('http://hp-api.herokuapp.com/api/characters')
-.then(response=>response.json())
-.then(data=>{
+let btnTodos=document.getElementById("btnTodos");
+let divSecundario=document.getElementById("divSecundario");
+fetch ('https://hp-api.onrender.com/api/characters')
+   .then(response=>response.json())
+   .then(data=>{
+       //console.log(data);
+      for(let p of data){
+        let personaje={
+          nombre:p.name,
+          vive:p.alive,
+          imagen:p.image,
+          casa:p.house,
+          especie:p.species,
+          genero:p.gender
+        }
+        personajes.push(personaje);
+      }
+     // console.log(personajes);
+})
+    .catch(error=> console.error('Error al acceder a la pagina ', error));
+function todos(){
+  if(personajes){
+      personajes.forEach(per=>{
+         let div=document.createElement("div");
+         div.style.border = "3px solid black"; // Borde negro de 3px de grosor
+         div.style.borderRadius = "3px"; // Bordes redondeados de 3px
+         let divN=document.createElement("div")
+         divN.textContent=per.nombre;
+         let divF=document.createElement("div");
+         let divCasa=document.createElement("div")
+         divCasa.textContent=per.casa;
+         if(per.imagen){
+            // Crear la etiqueta de imagen
+         let imagen = document.createElement("img");
 
-});
+         // Establecer el atributo src de la imagen
+         imagen.src = per.imagen; // Reemplaza "ruta_de_la_imagen" con la URL de tu imagen
+         //console.log(per.imagen);
+          // Establecer el tamaño de la imagen
+        imagen.width = 90;
+        imagen.height = 120;
+
+       // Agregar la imagen al divF
+        divF.appendChild(imagen);
+         }
+         
+       
+       // Agregar divN y divF al div principal
+       div.appendChild(divN);
+       div.appendChild(divF);
+       div.appendChild(divCasa);
+       divSecundario.appendChild(div);
+       // Agregar el div principal al documento
+       //document.body.appendChild(divSecundario); // Puedes cambiar document.body a otro elemento donde desees agregar estos divs
+
+      })
+  }else{
+    alert("La pagina no se termino de cargar , intentelo mas tarde");
+  }
+}    

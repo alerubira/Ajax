@@ -1,3 +1,22 @@
 #borrar{
     display: none;
 }
+#divSecundario {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.carta {
+    width: 30%; /* Cada carta ocupa el 30% del ancho */
+    margin: 1%; /* Margen entre las cartas */
+    border: 3px solid #ccc; /* Borde opcional para visualizar los límites de las cartas */
+    box-sizing: border-box; /* Asegura que el tamaño total incluya el borde */
+    overflow: hidden; /* Oculta cualquier contenido que exceda el tamaño del div */
+}
+
+.carta img {
+    max-width: 100%; /* La imagen no puede exceder el ancho del contenedor */
+    height: auto; /* Ajusta automáticamente la altura para mantener la proporción */
+}
+

@@ -81,21 +81,22 @@ $.ajax({
 });*/
 let divPrincipal=document.getElementById("divPrincipal");
 let personajes=[];
+let actual;
 let btnTodos=document.getElementById("btnTodos");
 let divSecundario=document.getElementById("divSecundario");
 let tiempoExcedido = false;
 
 // Configurar el temporizador para 10 segundos
-setTimeout(() => {
+/*setTimeout(() => {
     tiempoExcedido = true;
     console.log('La descarga ha excedido el tiempo límite de 10 segundos.');
-}, 10000);
+}, 10000);*/
 fetch ('https://hp-api.onrender.com/api/characters')
    .then(response=>response.json())
    .then(data=>{
        //console.log(data);
        // Si el tiempo no ha excedido, continuar con el procesamiento de los datos
-       if (!tiempoExcedido) {
+       //if (!tiempoExcedido) {
       for(let p of data){
         let personaje={
           nombre:p.name,
@@ -107,22 +108,29 @@ fetch ('https://hp-api.onrender.com/api/characters')
         }
         personajes.push(personaje);
       }
-    }
+   // }
      // console.log(personajes);
 })
     .catch(error=> console.error('Error al acceder a la pagina ', error));
 function todos(){
   limpiar();
-  mostrar(personajes);
-} 
+  actual=personajes;
+  mostrar(personajes,false);
+}
+ function difuntos(){
+   limpiar();
+    
+    mostrar(actual,true);
+ } 
 
 function limpiar(){
   while(divSecundario.firstChild){
-    divSecundario.firstChild.remove;
+    divSecundario.firstChild.remove();
   }
 } 
-function mostrar(arrP){
-  if(arrP){
+function mostrar(arrP,difunto){
+  
+  if(arrP!=undefined){
     arrP.forEach(per=>{
        let div=document.createElement("div");
        div.classList.add("carta");
@@ -147,6 +155,31 @@ function mostrar(arrP){
        }
      // Agregar la imagen al divF
       divF.appendChild(imagen);
+      if(difunto&&!per.vive){
+        var imagenD = document.createElement("img");
+    imagenD.src = "exis.jpg";
+    imagenD.style.width = "20px"; // Establecer el ancho de la imagenD
+    imagenD.style.height = "55px"; // Establecer la altura de la imagenD
+   /* imagenD.style.position = "absolute"; // Establecer la posición absoluta
+    
+    // Calcular las coordenadas para posicionar imagenD sobre imagen
+    var imagenPos = imagen.getBoundingClientRect();
+    var divPos = divF.getBoundingClientRect();
+    var imagenDX = imagenPos.left - divPos.left + (imagenPos.width - parseInt(imagenD.style.width)) / 2;
+    var imagenDY = imagenPos.top - divPos.top + (imagenPos.height - parseInt(imagenD.style.height)) / 2;
+    
+    imagenD.style.left = imagenDX + "px"; // Establecer la posición izquierda en relación con la imagen
+    imagenD.style.top = imagenDY + "px"; // Establecer la posición superior en relación con la imagen
+    
+    // Asegurar que imagenD se superponga sobre imagen
+    imagenD.style.zIndex = "1"; // Ajustar el índice z para que esté por encima de la imagen original*/
+    
+    divF.appendChild(imagenD); // Asegúrate de que imagenD se agregue al divF y no al div principal
+    
+          
+        }
+        
+      
      div.appendChild(divN);
      div.appendChild(divF);
      div.appendChild(divCasa);

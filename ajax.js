@@ -84,6 +84,7 @@ let personajes=[];
 let actual;
 let btnTodos=document.getElementById("btnTodos");
 let divSecundario=document.getElementById("divSecundario");
+let casa=document.getElementById("casa");
 let tiempoExcedido = false;
 
 // Configurar el temporizador para 10 segundos
@@ -127,7 +128,36 @@ function limpiar(){
   while(divSecundario.firstChild){
     divSecundario.firstChild.remove();
   }
-} 
+}
+// Función para manejar el evento del desplegable
+function manejarEventoDesplegable() {
+  if(personajes){
+    let casas= new Set();
+    for(per of personajes){
+      casas.add(per.casa);
+    }
+    let opcion;
+    casas.forEach(ca=>{
+      opcion=document.createElement("option");
+      opcion.value=ca;
+      opcion.textContent=ca,
+      casa.appendChild(opcion);
+    })
+    
+  }else{
+    alert("La Pagina de Harry NO se ha cargado");
+  }
+}
+function capturarSeleccion(){
+  
+}
+
+
+// Agregar un evento para capturar cuando el desplegable se abre
+casa.addEventListener("mousedown", manejarEventoDesplegable);
+casa.addEventListener("change",capturarSeleccion);
+
+
 function mostrar(arrP,difunto){
   
   if(arrP!=undefined){

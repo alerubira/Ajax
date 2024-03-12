@@ -21,7 +21,7 @@
     <!--</div>-->
     <!--<script>
         var model = 'camry'
-        // Your AJAX code here
+        // codigo AJAX jquery
         $.ajax({
             method: 'GET',
             url: 'https://api.api-ninjas.com/v1/cars?model=' + model,
@@ -38,6 +38,9 @@
     <div id="divPrincipal">
         <button id="btnTodos" onclick="todos()">Ver Todos</button>
         <button id="btnDifuntod" onclick ="difuntos()" >Marcar Difuntos</button>
+        <select name="casa" id="casa" >
+            <option value="" disabled selected>Elija La Casa</option>
+        </select>
         <div id="divSecundario">
 
         </div>

@@ -85,6 +85,8 @@ var actual;
 let btnTodos=document.getElementById("btnTodos");
 let divSecundario=document.getElementById("divSecundario");
 let casa=document.getElementById("casa");
+let raza=document.getElementById("raza");
+let genero=document.getElementById("genero");
 let tiempoExcedido = false;
 
 // Configurar el temporizador para 10 segundos
@@ -104,11 +106,11 @@ fetch ('https://hp-api.onrender.com/api/characters')
           vive:p.alive,
           imagen:p.image,
           casa:p.house,
-          especie:p.species,
+          raza:p.species,
           genero:p.gender
         }
         if(!p.house){
-           personaje.casa="No pertenece a ninguna Casa";
+           personaje.casa="Sin Casa";
         }
         personajes.push(personaje);
       }
@@ -133,44 +135,73 @@ function limpiar(){
   }
 }
 // Función para manejar el evento del desplegable
-function manejarEventoDesplegable() {
-  while(casa.firstChild){
-    casa.firstChild.remove();
+function manejarEventoDesplegable(sele,nombre) {
+  while(sele.firstChild){
+    sele.firstChild.remove();
   }
   if(personajes){
-    let casas= new Set();
+    let listaDesplegable= new Set();
     for(per of personajes){
-      casas.add(per.casa);
+      switch(sele){
+        case casa:listaDesplegable.add(per.casa);
+          break;
+        case raza:listaDesplegable.add(per.raza);
+          break;
+        case genero:listaDesplegable.add(per.genero);
+          break;    
+      }
+      
     }
     let opcion;
     opcion=document.createElement("option");
     opcion.value="";
-    opcion.textContent="Elija Casa";
-    casa.appendChild(opcion);
-    casas.forEach(ca=>{
+    opcion.textContent=`Elija ${nombre}` ;
+    sele.appendChild(opcion);
+    listaDesplegable.forEach(ca=>{
       opcion=document.createElement("option");
       opcion.value=ca;
       opcion.textContent=ca,
-      casa.appendChild(opcion);
+      sele.appendChild(opcion);
     })
     //capturarSeleccion(casa.value);
   }else{
     alert("La Pagina de Harry NO se ha cargado");
   }
 }
-function capturarSeleccion(opcionSeleccionada){
+function capturarSeleccion(opcionSeleccionada,filtrarPor){
   limpiar();
-   actual=personajes.filter(pers=>pers.casa===opcionSeleccionada);
+    switch(filtrarPor){
+      case "casa":actual=personajes.filter(per=>per.casa===opcionSeleccionada);
+       break;
+      case "raza":actual=personajes.filter(per=>per.raza===opcionSeleccionada);
+       break;
+      case "genero":actual=personajes.filter(per=>per.genero===opcionSeleccionada);
+       break;
+    }
+   X
    mostrar(actual,false);
 }
 
 
 // Agregar un evento para capturar cuando el desplegable se abre
-casa.addEventListener("mousedown", manejarEventoDesplegable);
+casa.addEventListener("mousedown",function(){
+  manejarEventoDesplegable(casa,"Casa");
+} );
 casa.addEventListener("change", function() {
-      capturarSeleccion(this.value);
+      capturarSeleccion(this.value,"casa");
   });
-
+raza.addEventListener("mousedown",function(){
+    manejarEventoDesplegable(raza,"Raza");
+  } );
+raza.addEventListener("change", function() {
+        capturarSeleccion(this.value,"raza");
+    });
+genero.addEventListener("mousedown",function(){
+      manejarEventoDesplegable(genero,"Genero");
+    } );
+genero.addEventListener("change", function() {
+          capturarSeleccion(this.value,"genero");
+      });
 
 
 function mostrar(arrP,difunto){

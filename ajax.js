@@ -81,7 +81,7 @@ $.ajax({
 });*/
 let divPrincipal=document.getElementById("divPrincipal");
 let personajes=[];
-let actual;
+var actual;
 let btnTodos=document.getElementById("btnTodos");
 let divSecundario=document.getElementById("divSecundario");
 let casa=document.getElementById("casa");
@@ -107,6 +107,9 @@ fetch ('https://hp-api.onrender.com/api/characters')
           especie:p.species,
           genero:p.gender
         }
+        if(!p.house){
+           personaje.casa="No pertenece a ninguna Casa";
+        }
         personajes.push(personaje);
       }
    // }
@@ -131,31 +134,43 @@ function limpiar(){
 }
 // Función para manejar el evento del desplegable
 function manejarEventoDesplegable() {
+  while(casa.firstChild){
+    casa.firstChild.remove();
+  }
   if(personajes){
     let casas= new Set();
     for(per of personajes){
       casas.add(per.casa);
     }
     let opcion;
+    opcion=document.createElement("option");
+    opcion.value="";
+    opcion.textContent="Elija Casa";
+    casa.appendChild(opcion);
     casas.forEach(ca=>{
       opcion=document.createElement("option");
       opcion.value=ca;
       opcion.textContent=ca,
       casa.appendChild(opcion);
     })
-    
+    //capturarSeleccion(casa.value);
   }else{
     alert("La Pagina de Harry NO se ha cargado");
   }
 }
-function capturarSeleccion(){
-  
+function capturarSeleccion(opcionSeleccionada){
+  limpiar();
+   actual=personajes.filter(pers=>pers.casa===opcionSeleccionada);
+   mostrar(actual,false);
 }
 
 
 // Agregar un evento para capturar cuando el desplegable se abre
 casa.addEventListener("mousedown", manejarEventoDesplegable);
-casa.addEventListener("change",capturarSeleccion);
+casa.addEventListener("change", function() {
+      capturarSeleccion(this.value);
+  });
+
 
 
 function mostrar(arrP,difunto){

@@ -20,3 +20,13 @@
     height: auto; /* Ajusta automáticamente la altura para mantener la proporción */
 }
 
+@media (max-width: 600px) {
+    .carta {
+        width: 45%; /* Cuando la pantalla tenga menos de 600px, cada carta ocupará el 45% del ancho */
+    }
+}
+@media (max-width: 400px){
+    .carta {
+        width: 95%;
+    }
+}

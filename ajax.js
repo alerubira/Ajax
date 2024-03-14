@@ -87,6 +87,7 @@ let divSecundario=document.getElementById("divSecundario");
 let casa=document.getElementById("casa");
 let raza=document.getElementById("raza");
 let genero=document.getElementById("genero");
+let btnBuacar=document.getElementById("btnBuscar");
 let tiempoExcedido = false;
 
 // Configurar el temporizador para 10 segundos
@@ -129,11 +130,7 @@ function todos(){
     mostrar(actual,true);
  } 
 
-function limpiar(){
-  while(divSecundario.firstChild){
-    divSecundario.firstChild.remove();
-  }
-}
+
 // Función para manejar el evento del desplegable
 function manejarEventoDesplegable(sele,nombre) {
   while(sele.firstChild){
@@ -168,17 +165,19 @@ function manejarEventoDesplegable(sele,nombre) {
     alert("La Pagina de Harry NO se ha cargado");
   }
 }
-function capturarSeleccion(opcionSeleccionada,filtrarPor){
+function capturarSeleccion(filtrarPor,...opcionSeleccionada){
   limpiar();
     switch(filtrarPor){
-      case "casa":actual=personajes.filter(per=>per.casa===opcionSeleccionada);
+      case "casa":actual=personajes.filter(per=>per.casa===opcionSeleccionada[0]);
        break;
-      case "raza":actual=personajes.filter(per=>per.raza===opcionSeleccionada);
+      case "raza":actual=personajes.filter(per=>per.raza===opcionSeleccionada[0]);
        break;
-      case "genero":actual=personajes.filter(per=>per.genero===opcionSeleccionada);
+      case "genero":actual=personajes.filter(per=>per.genero===opcionSeleccionada[0]);
+       break;
+      case "razaGenero":actual=personajes.filter(per=>per.genero===opcionSeleccionada[0]&&per.raza===opcionSeleccionada[1]);
        break;
     }
-   X
+   
    mostrar(actual,false);
 }
 
@@ -188,21 +187,40 @@ casa.addEventListener("mousedown",function(){
   manejarEventoDesplegable(casa,"Casa");
 } );
 casa.addEventListener("change", function() {
-      capturarSeleccion(this.value,"casa");
+      capturarSeleccion("casa",this.value);
   });
 raza.addEventListener("mousedown",function(){
     manejarEventoDesplegable(raza,"Raza");
   } );
 raza.addEventListener("change", function() {
-        capturarSeleccion(this.value,"raza");
+        capturarSeleccion("raza",this.value);
     });
 genero.addEventListener("mousedown",function(){
       manejarEventoDesplegable(genero,"Genero");
     } );
 genero.addEventListener("change", function() {
-          capturarSeleccion(this.value,"genero");
+          capturarSeleccion("genero",this.value);
       });
-
+function buscar(){
+     limpiar();
+     console.log(genero.value);
+     if(genero.value&&raza.value&&genero.value!="disdabled"&&raza.value!="disdabled"){
+      capturarSeleccion("razaGenero",genero.value,raza.value);
+     }else{
+      alert("Debe selccionar una Raza y un Genero");
+     }
+     
+}
+function razaGenero(){
+     limpiar();
+     genero.removeEventListener("change",function(){
+      capturarSeleccion("genero",this.value);
+     });
+     raza.removeEventListener("change",function(){
+      capturarSeleccion("raza",this.value);
+     });
+     btnBuacar.style.display="block";
+}
 
 function mostrar(arrP,difunto){
   
@@ -268,4 +286,8 @@ function mostrar(arrP,difunto){
   alert("La pagina no se termino de cargar , intentelo mas tarde");
 }
 }
-   
+function limpiar(){
+  while(divSecundario.firstChild){
+    divSecundario.firstChild.remove();
+  }
+} 
